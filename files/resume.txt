@@ -1,0 +1,31 @@
+﻿Your Name
+Email: you@example.com
+Phone: (555) 010-2026
+LinkedIn: https://www.linkedin.com/in/your-link
+GitHub: https://github.com/your-handle
+
+SUMMARY
+Analytical and detail-oriented professional with experience transforming data into actionable business insights.
+
+EDUCATION
+Western Mountain University - B.S. in Business Analytics
+Graduation: May 2025
+GPA: 3.8/4.0
+Relevant coursework: Predictive Modeling, Data Visualization, Database Systems, Statistical Inference
+
+WORK EXPERIENCE
+Data Analyst Intern | Summit Retail Group | June 2024 - August 2024
+- Built Tableau dashboards that reduced weekly reporting time by 35%.
+- Created SQL queries to track customer retention and campaign performance.
+- Presented insights to leadership with clear, actionable recommendations.
+
+Research Assistant | University Analytics Lab | September 2023 - May 2024
+- Cleaned and modeled large survey datasets using Python and pandas.
+- Automated data quality checks, cutting manual QA time by 20%.
+- Collaborated with faculty to produce visuals for conference presentations.
+
+SKILLS
+Languages: SQL, Python, HTML, CSS, JavaScript
+Tools: Tableau, Power BI, Git, Excel, Google Analytics
+Strengths: Data storytelling, dashboard design, stakeholder communication
+

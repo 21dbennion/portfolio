@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exodus: Jetpack Moses</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        canvas { background: linear-gradient(to bottom, #87CEEB 0%, #fdbb2d 100%); border: 4px solid #5d4037; box-shadow: 0 0 30px rgba(0,0,0,0.5); display: block; cursor: pointer; }
+        #stats { position: absolute; top: 20px; left: 20px; color: #fff; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #000; pointer-events: none; }
+        #instructions { position: absolute; top: 20px; right: 20px; max-width: 280px; color: #fff; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: 12px 14px; font-size: 14px; line-height: 1.4; text-shadow: 1px 1px #000; }
+        #instructions h2 { margin: 0 0 8px; font-size: 16px; }
+        #instructions p { margin: 6px 0; }
+    </style>
+</head>
+<body>
+
+    <div id="stats">
+        Distance: <span id="dist">0</span>m<br>
+        Coins: <span id="coins">0</span>
+    </div>
+    <div id="instructions">
+        <h2>How to Play</h2>
+        <p>Hold mouse click or touch to thrust upward.</p>
+        <p>Avoid burning bushes and snakes.</p>
+        <p>Collect coins to increase your score.</p>
+        <p>If you crash, click/tap to try again.</p>
+        <p><a href="scratch.html" style="color:#ffe082; font-weight:700;">Go to Scratch Page</a></p>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const distEl = document.getElementById('dist');
+        const coinEl = document.getElementById('coins');
+        const mosesHeadImg = new Image();
+        let mosesHeadReady = false;
+        mosesHeadImg.onload = () => { mosesHeadReady = true; };
+        mosesHeadImg.src = 'data:image/jpeg;base64,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';
+
+        canvas.width = 800;
+        canvas.height = 400;
+
+        // Constants
+        const GRAVITY = 0.25;
+        const THRUST = 0.7;
+        const SPEED = 5;
+
+        // State
+        let distance = 0;
+        let coinCount = 0;
+        let isGameOver = false;
+        let isThrusting = false;
+        let frame = 0;
+
+        const player = {
+            x: 120, y: 200, w: 40, h: 60, vy: 0
+        };
+
+        let obstacles = []; // Burning bushes
+        let snakes = [];    // Fast moving hazards
+        let coins = [];     // Collectibles
+
+        // Inputs
+        const startThrust = (e) => { e.preventDefault(); if(isGameOver) reset(); else isThrusting = true; };
+        const endThrust = () => isThrusting = false;
+
+        window.addEventListener('mousedown', startThrust);
+        window.addEventListener('mouseup', endThrust);
+        window.addEventListener('touchstart', startThrust);
+        window.addEventListener('touchend', endThrust);
+
+        function reset() {
+            player.y = 200; player.vy = 0;
+            obstacles = []; snakes = []; coins = [];
+            distance = 0; coinCount = 0;
+            isGameOver = false;
+            update();
+        }
+
+        function spawnEntities() {
+            // Spawn Coins
+            if (frame % 60 === 0) {
+                coins.push({ x: 850, y: 50 + Math.random() * 300, r: 10 });
+            }
+            // Spawn Burning Bushes (Obstacles)
+            if (frame % 100 === 0) {
+                obstacles.push({ x: 850, y: Math.random() * 300, w: 15, h: 80 });
+            }
+            // Spawn Snakes (Faster)
+            if (frame % 140 === 0) {
+                snakes.push({ x: 850, y: Math.random() * 350, w: 32, h: 16, s: SPEED + 2, wave: Math.random() * Math.PI * 2 });
+            }
+        }
+
+        function drawMoses(x, y) {
+            // Staff
+            ctx.strokeStyle = '#5d4037';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(x + 35, y - 10);
+            ctx.lineTo(x + 35, y + 60);
+            ctx.stroke();
+
+            // Jetpack Flame (Divine pillar of fire effect)
+            if (isThrusting) {
+                ctx.fillStyle = frame % 2 === 0 ? '#ff6600' : '#ffcc00';
+                ctx.beginPath();
+                ctx.moveTo(x, y + 40);
+                ctx.lineTo(x - 15, y + 70);
+                ctx.lineTo(x + 10, y + 40);
+                ctx.fill();
+            }
+
+            // Robe
+            ctx.fillStyle = '#f5f5dc';
+            ctx.fillRect(x, y, 30, 50);
+            ctx.fillStyle = '#3f51b5'; // Blue sash
+            ctx.fillRect(x, y + 20, 30, 10);
+
+            // Head with simple facial expression
+            ctx.fillStyle = '#ffe0bd';
+            ctx.beginPath();
+            ctx.arc(x + 15, y - 4, 11, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#2b2b2b';
+            ctx.beginPath();
+            ctx.arc(x + 11, y - 6, 1.4, 0, Math.PI * 2);
+            ctx.arc(x + 19, y - 6, 1.4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#2b2b2b';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(x + 15, y - 1, 4, 0.2, Math.PI - 0.2);
+            ctx.stroke();
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.moveTo(x + 7, y + 4);
+            ctx.lineTo(x + 23, y + 4);
+            ctx.lineTo(x + 15, y + 16);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function update() {
+            if (isGameOver) return;
+            frame++;
+            distance += 0.1;
+            distEl.innerText = Math.floor(distance);
+
+            // Physics
+            if (isThrusting) player.vy -= THRUST;
+            player.vy += GRAVITY;
+            player.y += player.vy;
+
+            // Floor/Ceiling
+            if (player.y > canvas.height - player.h - 20) {
+                player.y = canvas.height - player.h - 20;
+                player.vy = 0;
+            }
+            if (player.y < 20) {
+                player.y = 20;
+                player.vy = 0;
+            }
+
+            spawnEntities();
+
+            // Handle Coins
+            coins.forEach((c, i) => {
+                c.x -= SPEED;
+                // Collision
+                if (Math.hypot(player.x + 15 - c.x, player.y + 25 - c.y) < 25) {
+                    coins.splice(i, 1);
+                    coinCount += 10;
+                    coinEl.innerText = coinCount;
+                }
+            });
+
+            // Handle Burning Bushes
+            obstacles.forEach((o, i) => {
+                o.x -= SPEED;
+                if (player.x < o.x + o.w && player.x + 30 > o.x && player.y < o.y + o.h && player.y + 50 > o.y) {
+                    isGameOver = true;
+                }
+            });
+
+            // Handle Snakes
+            snakes.forEach((s, i) => {
+                s.x -= s.s;
+                s.wave += 0.18;
+                s.y += Math.sin(s.wave) * 0.8;
+                if (player.x < s.x + s.w && player.x + 30 > s.x && player.y < s.y + s.h && player.y + 50 > s.y) {
+                    isGameOver = true;
+                }
+            });
+
+            // Cleanup
+            [coins, obstacles, snakes].forEach(arr => {
+                if(arr[0] && arr[0].x < -50) arr.shift();
+            });
+
+            draw();
+            requestAnimationFrame(update);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Ground (Sand)
+            ctx.fillStyle = '#e3c48d';
+            ctx.fillRect(0, canvas.height - 20, canvas.width, 20);
+
+            // Draw Coins (Shekels)
+            coins.forEach(c => {
+                ctx.fillStyle = '#ffd700';
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#b8860b';
+                ctx.stroke();
+            });
+
+            // Draw Burning Bushes
+            obstacles.forEach(o => {
+                ctx.fillStyle = '#2f7d32';
+                ctx.fillRect(o.x - 6, o.y + 8, o.w + 12, o.h - 8);
+                ctx.fillStyle = '#5d4037';
+                ctx.fillRect(o.x + 4, o.y + o.h - 14, 6, 14);
+                ctx.fillStyle = frame % 12 < 6 ? '#ff6f00' : '#ffca28';
+                ctx.beginPath();
+                ctx.moveTo(o.x + 7, o.y - 8);
+                ctx.lineTo(o.x - 2, o.y + 10);
+                ctx.lineTo(o.x + 16, o.y + 10);
+                ctx.closePath();
+                ctx.fill();
+            });
+
+            // Draw Snakes
+            snakes.forEach(s => {
+                ctx.strokeStyle = '#1b5e20';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(s.x, s.y + s.h / 2);
+                ctx.quadraticCurveTo(s.x + s.w * 0.35, s.y - 6, s.x + s.w * 0.6, s.y + s.h / 2);
+                ctx.quadraticCurveTo(s.x + s.w * 0.82, s.y + s.h + 6, s.x + s.w, s.y + s.h / 2);
+                ctx.stroke();
+                ctx.fillStyle = '#33691e';
+                ctx.beginPath();
+                ctx.arc(s.x + s.w, s.y + s.h / 2, 4, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            drawMoses(player.x, player.y);
+
+            if (isGameOver) {
+                ctx.fillStyle = 'rgba(0,0,0,0.6)';
+                ctx.fillRect(0,0,canvas.width, canvas.height);
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.font = 'bold 40px Arial';
+                ctx.fillText('LET MY PEOPLE GO!', canvas.width/2, canvas.height/2);
+                ctx.font = '20px Arial';
+                ctx.fillText('Click to Try Again', canvas.width/2, canvas.height/2 + 50);
+                if (mosesHeadReady) {
+                    ctx.drawImage(mosesHeadImg, canvas.width / 2 - 40, canvas.height / 2 - 150, 80, 80);
+                }
+            }
+        }
+
+        update();
+    </script>
+</body>
+</html>

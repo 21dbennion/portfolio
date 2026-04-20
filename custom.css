@@ -1,0 +1,137 @@
+﻿:root {
+  --scratch-bg-top: #fff8ee;
+  --scratch-bg-bottom: #f6f2e9;
+  --scratch-nav: #2f241f;
+  --scratch-accent: #b45309;
+  --scratch-accent-soft: #f59e0b;
+  --scratch-card-border: #e8ddcc;
+  --scratch-text: #2b2623;
+  --scratch-muted: #655c55;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--scratch-text);
+  background: linear-gradient(180deg, var(--scratch-bg-top) 0%, var(--scratch-bg-bottom) 100%);
+  line-height: 1.65;
+}
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--scratch-nav);
+  padding: 14px 24px;
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid #493a33;
+}
+
+.top-nav a {
+  color: #fff7ed;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.top-nav a:hover {
+  color: #ffd7a1;
+}
+
+.hero-block,
+.content-grid,
+.embed-block,
+.footer-block {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-block {
+  margin-top: 28px;
+  margin-bottom: 20px;
+  padding: 24px 28px;
+  background: #fffdf8;
+  border: 1px solid var(--scratch-card-border);
+  border-left: 6px solid var(--scratch-accent);
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(78, 62, 42, 0.08);
+}
+
+.hero-block h1,
+.insights-block h2,
+.media-block h2,
+.embed-block h2 {
+  margin-top: 0;
+  color: #3d2e24;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.insights-block,
+.media-block,
+.embed-block,
+.footer-block {
+  background: #fffdf9;
+  border: 1px solid var(--scratch-card-border);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 8px 22px rgba(78, 62, 42, 0.08);
+}
+
+.insights-block li {
+  margin-bottom: 6px;
+}
+
+.insights-block ul {
+  margin-top: 8px;
+}
+
+.media-block img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #d8c8af;
+}
+
+.embed-block {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.embed-block iframe {
+  width: 100%;
+  min-height: 380px;
+  border: 1px solid #d8c8af;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background: #fff;
+}
+
+.footer-block {
+  margin-bottom: 30px;
+  text-align: right;
+}
+
+.footer-block a {
+  color: var(--scratch-accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer-block a:hover {
+  color: var(--scratch-accent-soft);
+  text-decoration: underline;
+}
+
+p,
+li {
+  color: var(--scratch-muted);
+}
