@@ -37,10 +37,16 @@
       margin: 0 0 0.5rem;
       font-size: 2.25rem;
     }
-    .pdf-frame {
+    .sample-pages {
+      display: grid;
+      gap: 1.25rem;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+    .sample-pages img {
+      display: block;
       width: 100%;
-      height: 1100px;
-      border: 1px solid #d1d5db;
+      height: auto;
       background: white;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     }
@@ -68,11 +74,16 @@
       <p>Selected writing sample for review.</p>
     </div>
 
-    <iframe class="pdf-frame" src="files/David_Bennion_Writing_Sample_.pdf" title="David Bennion Writing Sample" loading="lazy"></iframe>
+    <section class="sample-pages" aria-label="Writing sample pages">
+      <img src="files/writing-sample/page-01.png" alt="Writing sample, page 1 of 7" loading="lazy" decoding="async" />
+      <img src="files/writing-sample/page-02.png" alt="Writing sample, page 2 of 7" loading="lazy" decoding="async" />
+      <img src="files/writing-sample/page-03.png" alt="Writing sample, page 3 of 7" loading="lazy" decoding="async" />
+      <img src="files/writing-sample/page-04.png" alt="Writing sample, page 4 of 7" loading="lazy" decoding="async" />
+      <img src="files/writing-sample/page-05.png" alt="Writing sample, page 5 of 7" loading="lazy" decoding="async" />
+      <img src="files/writing-sample/page-06.png" alt="Writing sample, page 6 of 7" loading="lazy" decoding="async" />
+      <img src="files/writing-sample/page-07.png" alt="Writing sample, page 7 of 7" loading="lazy" decoding="async" />
+    </section>
 
-    <div class="links">
-      <a href="files/David_Bennion_Writing_Sample_.pdf" target="_blank" rel="noopener noreferrer" download>Open the writing sample in a new tab</a>
-    </div>
   </div>
 </body>
 </html>
