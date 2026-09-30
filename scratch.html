@@ -3,53 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Scratch Page | Coldplay Appreciation</title>
+  <title>Writing Sample | David Bennion</title>
   <link rel="stylesheet" href="custom.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f5f7;
+      color: #1f2937;
+    }
+    .top-nav {
+      background: #1f2937;
+      padding: 1rem 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .top-nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .page-wrap {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem 3rem;
+    }
+    .hero {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      margin: 0 0 0.5rem;
+      font-size: 2.25rem;
+    }
+    .pdf-frame {
+      width: 100%;
+      height: 1100px;
+      border: 1px solid #d1d5db;
+      background: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+    .links {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .links a {
+      color: #0f766e;
+      font-weight: 700;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-  <a id="top"></a>
   <nav class="top-nav">
     <a href="index.html">My Portfolio</a>
-    <a href="scratch.html">Scratch Page</a>
-    <a href="game.html">Web App Game</a>
+    <a href="files/David_Bennion_Resume_.pdf" target="_blank" rel="noopener noreferrer">Resume PDF</a>
+    <a href="scratch.html">Writing Sample</a>
   </nav>
 
-  <div class="hero-block">
-    <h1>Coldplay Appreciation Page</h1>
-    <p>Coldplay has been my favorite band for a long time. I can still remember the first songs I ever listened to by them: Clocks and Paradise.</p>
-  </div>
-
-  <div class="content-grid">
-    <div class="insights-block">
-      <h2>Why I Love Coldplay</h2>
-      <ol>
-        <li>Variety
-          <ul>
-            <li>No matter how you are feeling, there is a Coldplay song for that moment</li>
-            <li>Some songs are very upbeat, while others are thoughtful and peaceful </li>
-          </ul>
-        </li>
-        <li>They make music that makes you feel something</li>
-        <li>Some bands are known for their storytelling, but Coldplay tells the story through how the song makes you feel</li>
-      </ol>
+  <div class="page-wrap">
+    <div class="hero">
+      <h1>David Bennion Writing Sample</h1>
+      <p>Selected writing sample for review.</p>
     </div>
 
-    <div class="media-block">
-      <h2>Chris Martin and Dick Van Dyke</h2>
-      <img src="files/coldplay-appreciation.jpg" alt="Coldplay with Dick Van Dyke" />
+    <embed class="pdf-frame" src="files/David_Bennion_Writing_Sample_.pdf" type="application/pdf" />
+
+    <div class="links">
+      <a href="files/David_Bennion_Writing_Sample_.pdf" target="_blank" rel="noopener noreferrer">Open the writing sample in a new tab</a>
     </div>
-  </div>
-
-  <div class="embed-block">
-    <h2>One of My Favorites - The Scientist</h2>
-    <iframe src="files/youtube_embed.html" title="Coldplay YouTube video embed" loading="lazy"></iframe>
-
-    <h2>Interactive Tableau Visualization</h2>
-    <iframe src="files/tableau_embed.html" title="Coldplay Tableau dashboard embed" loading="lazy"></iframe>
-  </div>
-
-  <div class="footer-block">
-    <a href="#top">Back to Top</a>
   </div>
 </body>
 </html>
